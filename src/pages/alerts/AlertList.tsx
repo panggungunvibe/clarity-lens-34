@@ -111,40 +111,55 @@ const AlertList = () => {
         {/* 时间筛选 */}
         <Card className="p-3 md:p-4">
           <div className="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center md:gap-4">
-            <div className="flex items-center gap-2 text-sm font-medium">
-              <Clock className="h-4 w-4 text-primary" />
-              时间范围
+            <div className="flex items-center justify-between gap-2 md:justify-start">
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <Clock className="h-4 w-4 text-primary" />
+                时间范围
+              </div>
+              {/* 移动端：负面数量靠右 */}
+              <div className="flex items-baseline gap-1 rounded-md bg-destructive-soft px-2.5 py-1 text-xs md:hidden">
+                <span className="text-destructive">负面</span>
+                <span className="text-sm font-semibold text-destructive tabular-nums">{filtered.length}</span>
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-2">
-              {timeWindows.map((w) => (
-                <button
-                  key={w.key}
-                  onClick={() => { setWindowKey(w.key); setCustomRange(undefined); }}
-                  className={cn(
-                    "rounded-md border px-2.5 py-1.5 text-xs transition-colors",
-                    !customRange && windowKey === w.key
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-card text-muted-foreground hover:border-primary hover:text-primary"
-                  )}
-                >
-                  {w.label}
-                </button>
-              ))}
-              <DateTimeRangePicker
-                value={customRange}
-                onChange={(r) => { setCustomRange(r); }}
-              />
-              {customRange && (
-                <button
-                  onClick={() => setCustomRange(undefined)}
-                  className="text-xs text-muted-foreground underline-offset-2 hover:text-primary hover:underline"
-                >
-                  清除
-                </button>
-              )}
+
+            {/* 时间快捷按钮：移动端横向滚动 */}
+            <div className="-mx-3 overflow-x-auto px-3 md:mx-0 md:overflow-visible md:px-0">
+              <div className="flex items-center gap-2 whitespace-nowrap md:flex-wrap">
+                {timeWindows.map((w) => (
+                  <button
+                    key={w.key}
+                    onClick={() => { setWindowKey(w.key); setCustomRange(undefined); }}
+                    className={cn(
+                      "shrink-0 rounded-md border px-2.5 py-1.5 text-xs transition-colors",
+                      !customRange && windowKey === w.key
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-border bg-card text-muted-foreground hover:border-primary hover:text-primary"
+                    )}
+                  >
+                    {w.label}
+                  </button>
+                ))}
+                <div className="shrink-0">
+                  <DateTimeRangePicker
+                    value={customRange}
+                    onChange={(r) => { setCustomRange(r); }}
+                  />
+                </div>
+                {customRange && (
+                  <button
+                    onClick={() => setCustomRange(undefined)}
+                    className="shrink-0 text-xs text-muted-foreground underline-offset-2 hover:text-primary hover:underline"
+                  >
+                    清除
+                  </button>
+                )}
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground md:ml-auto">
-              <div className="hidden md:block">
+
+            {/* 桌面端：当前窗口 + 负面数量 */}
+            <div className="hidden flex-wrap items-center gap-3 text-xs text-muted-foreground md:ml-auto md:flex">
+              <div>
                 当前窗口：<span className="font-medium text-foreground tabular-nums">{windowLabel}</span>
               </div>
               <div className="flex items-baseline gap-1.5 rounded-md bg-destructive-soft px-3 py-1.5">
@@ -153,6 +168,13 @@ const AlertList = () => {
                 <span className="text-destructive">条</span>
               </div>
             </div>
+
+            {/* 移动端：当前窗口（自定义范围时单独一行显示完整范围） */}
+            {customRange && (
+              <div className="text-[11px] text-muted-foreground md:hidden">
+                当前窗口：<span className="font-medium text-foreground tabular-nums">{windowLabel}</span>
+              </div>
+            )}
           </div>
         </Card>
 
