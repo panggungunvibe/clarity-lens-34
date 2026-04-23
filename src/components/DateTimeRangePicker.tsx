@@ -72,8 +72,11 @@ const DateTimeRangePicker = ({ value, onChange, triggerClassName }: Props) => {
           {value ? label : "自定义"}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
-        <div className="flex flex-col divide-y divide-border md:flex-row md:divide-x md:divide-y-0">
+      <PopoverContent
+        className="w-[calc(100vw-1.5rem)] max-w-[640px] p-0 sm:w-auto"
+        align="start"
+      >
+        <div className="flex max-h-[70vh] flex-col divide-y divide-border overflow-y-auto md:flex-row md:divide-x md:divide-y-0 md:overflow-visible">
           {/* 起始 */}
           <div className="p-3">
             <div className="mb-2 flex items-center gap-1.5 px-1 text-xs font-semibold text-muted-foreground">

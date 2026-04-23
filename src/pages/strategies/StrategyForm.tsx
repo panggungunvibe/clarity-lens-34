@@ -26,7 +26,6 @@ const StrategyForm = ({ mode }: Props) => {
   const [name, setName] = useState(existing?.name ?? "");
   const [description, setDescription] = useState(existing?.description ?? "");
   const [keywords, setKeywords] = useState<string[]>(existing?.keywords ?? []);
-  // 排除词在当前版本不再支持配置，但编辑模式下保留原有数据，避免保存时丢失
   const [excludeKeywords] = useState<string[]>(existing?.excludeKeywords ?? []);
   const [notifyInbox, setNotifyInbox] = useState(existing?.notifyInbox ?? true);
 
@@ -80,15 +79,15 @@ const StrategyForm = ({ mode }: Props) => {
       breadcrumbs={[{ label: "策略配置", to: "/strategies" }, { label: title }]}
       actions={
         <>
-          <Button variant="outline" onClick={() => navigate(-1)}>取消</Button>
-          <Button onClick={handleSave}>保存</Button>
+          <Button variant="outline" size="sm" onClick={() => navigate(-1)}>取消</Button>
+          <Button size="sm" onClick={handleSave}>保存</Button>
         </>
       }
     >
-      <div className="mx-auto max-w-4xl space-y-5">
+      <div className="mx-auto max-w-4xl space-y-4 md:space-y-5">
         {/* 基础信息 */}
-        <Card className="p-6">
-          <div className="mb-5 flex items-center gap-2 border-b border-border pb-3">
+        <Card className="p-4 md:p-6">
+          <div className="mb-4 flex items-center gap-2 border-b border-border pb-3 md:mb-5">
             <span className="flex h-6 w-6 items-center justify-center rounded bg-primary-soft text-xs font-semibold text-primary">1</span>
             <h2 className="text-base font-semibold">基础信息</h2>
           </div>
@@ -110,28 +109,28 @@ const StrategyForm = ({ mode }: Props) => {
         </Card>
 
         {/* 检测规则 */}
-        <Card className="p-6">
-          <div className="mb-5 flex items-center gap-2 border-b border-border pb-3">
+        <Card className="p-4 md:p-6">
+          <div className="mb-4 flex items-center gap-2 border-b border-border pb-3 md:mb-5">
             <span className="flex h-6 w-6 items-center justify-center rounded bg-primary-soft text-xs font-semibold text-primary">2</span>
             <h2 className="text-base font-semibold">检测规则</h2>
           </div>
 
-          <div className="mb-5 flex items-start gap-2 rounded-md bg-info-soft px-3 py-2.5 text-xs text-info">
+          <div className="mb-4 flex items-start gap-2 rounded-md bg-info-soft px-3 py-2.5 text-xs text-info md:mb-5">
             <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
             <span>请在下方输入需要检测的关键词，按回车生成标签；当输入框为空时按退格可删除最近一个关键词。关键词总字数上限为 500 字。</span>
           </div>
 
           <div className="space-y-3">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <Label className="text-sm">想检测的关键词 <span className="text-destructive">*</span></Label>
-              <span className="text-xs text-muted-foreground">已添加 {keywords.length} 个关键词</span>
+              <span className="text-xs text-muted-foreground">已添加 {keywords.length} 个</span>
             </div>
             <TagsInput
               value={keywords}
               onChange={setKeywords}
               maxTotalChars={MAX_CHARS}
-              placeholder="输入关键词后按回车，例如：某品牌X70 → 回车 → 自研系统系统 → 回车"
-              className="min-h-[220px] items-start"
+              placeholder="输入关键词后按回车"
+              className="min-h-[180px] items-start md:min-h-[220px]"
             />
           </div>
 
@@ -146,8 +145,8 @@ const StrategyForm = ({ mode }: Props) => {
         </Card>
 
         {/* 通知方式 */}
-        <Card className="p-6">
-          <div className="mb-5 flex items-center gap-2 border-b border-border pb-3">
+        <Card className="p-4 md:p-6">
+          <div className="mb-4 flex items-center gap-2 border-b border-border pb-3 md:mb-5">
             <span className="flex h-6 w-6 items-center justify-center rounded bg-primary-soft text-xs font-semibold text-primary">3</span>
             <h2 className="text-base font-semibold">通知方式</h2>
           </div>
@@ -156,7 +155,7 @@ const StrategyForm = ({ mode }: Props) => {
               <Checkbox id="inbox" checked={notifyInbox} onCheckedChange={(v) => setNotifyInbox(!!v)} />
               <Label htmlFor="inbox" className="cursor-pointer">站内信</Label>
             </div>
-            <ul className="space-y-1 pl-6 text-xs text-muted-foreground">
+            <ul className="space-y-1 pl-6 text-xs leading-relaxed text-muted-foreground">
               <li>· 每次定时拉取完成后，系统会在右上角铃铛生成一条窗口级摘要通知</li>
               <li>· 当前版本不做通知对象配置，统一账号登录后查看站内信</li>
             </ul>

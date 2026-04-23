@@ -41,14 +41,16 @@ const TablePagination = ({
   const pages = buildPages(safePage, totalPages);
 
   return (
-    <div className={cn("flex flex-wrap items-center justify-between gap-3 px-4 py-3", className)}>
+    <div className={cn("flex flex-wrap items-center justify-between gap-3 px-3 py-3 md:px-4", className)}>
       <div className="text-xs text-muted-foreground">
         共 <span className="font-semibold tabular-nums text-foreground">{total.toLocaleString()}</span> 条
-        · 显示 <span className="tabular-nums text-foreground">{startIdx}-{endIdx}</span>
+        <span className="hidden sm:inline">
+          {" "}· 显示 <span className="tabular-nums text-foreground">{startIdx}-{endIdx}</span>
+        </span>
       </div>
 
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+      <div className="flex items-center gap-2 md:gap-3">
+        <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground">
           每页
           <Select value={String(pageSize)} onValueChange={(v) => onPageSizeChange(Number(v))}>
             <SelectTrigger className="h-7 w-[72px] text-xs">
@@ -66,7 +68,7 @@ const TablePagination = ({
           <Button
             variant="outline"
             size="icon"
-            className="h-7 w-7"
+            className="hidden md:inline-flex h-7 w-7"
             disabled={safePage === 1}
             onClick={() => onPageChange(1)}
           >
@@ -75,33 +77,41 @@ const TablePagination = ({
           <Button
             variant="outline"
             size="icon"
-            className="h-7 w-7"
+            className="h-8 w-8 md:h-7 md:w-7"
             disabled={safePage === 1}
             onClick={() => onPageChange(safePage - 1)}
           >
             <ChevronLeft className="h-3.5 w-3.5" />
           </Button>
 
-          {pages.map((p, i) =>
-            p === "..." ? (
-              <span key={`e${i}`} className="px-1.5 text-xs text-muted-foreground">…</span>
-            ) : (
-              <Button
-                key={p}
-                variant={p === safePage ? "default" : "outline"}
-                size="sm"
-                className="h-7 min-w-[28px] px-2 text-xs tabular-nums"
-                onClick={() => onPageChange(p)}
-              >
-                {p}
-              </Button>
-            )
-          )}
+          {/* 桌面：完整页码 */}
+          <div className="hidden md:flex items-center gap-1">
+            {pages.map((p, i) =>
+              p === "..." ? (
+                <span key={`e${i}`} className="px-1.5 text-xs text-muted-foreground">…</span>
+              ) : (
+                <Button
+                  key={p}
+                  variant={p === safePage ? "default" : "outline"}
+                  size="sm"
+                  className="h-7 min-w-[28px] px-2 text-xs tabular-nums"
+                  onClick={() => onPageChange(p)}
+                >
+                  {p}
+                </Button>
+              )
+            )}
+          </div>
+
+          {/* 移动：仅当前页 / 总页 */}
+          <span className="px-2 text-xs tabular-nums text-muted-foreground md:hidden">
+            <span className="font-semibold text-foreground">{safePage}</span> / {totalPages}
+          </span>
 
           <Button
             variant="outline"
             size="icon"
-            className="h-7 w-7"
+            className="h-8 w-8 md:h-7 md:w-7"
             disabled={safePage >= totalPages}
             onClick={() => onPageChange(safePage + 1)}
           >
@@ -110,7 +120,7 @@ const TablePagination = ({
           <Button
             variant="outline"
             size="icon"
-            className="h-7 w-7"
+            className="hidden md:inline-flex h-7 w-7"
             disabled={safePage >= totalPages}
             onClick={() => onPageChange(totalPages)}
           >

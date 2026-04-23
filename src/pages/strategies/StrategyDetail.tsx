@@ -7,14 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { strategies } from "@/data/mockData";
 
 const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
-  <div className="grid grid-cols-[140px_1fr] items-start gap-4 py-3 border-b border-border last:border-0">
-    <span className="text-sm text-muted-foreground">{label}</span>
+  <div className="grid grid-cols-1 gap-1 border-b border-border py-3 last:border-0 sm:grid-cols-[120px_1fr] sm:items-start sm:gap-4">
+    <span className="text-xs text-muted-foreground sm:text-sm">{label}</span>
     <div className="text-sm">{children}</div>
   </div>
 );
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <Card className="p-6">
+  <Card className="p-4 md:p-6">
     <h2 className="mb-2 border-b border-border pb-3 text-base font-semibold">{title}</h2>
     {children}
   </Card>
@@ -38,10 +38,10 @@ const StrategyDetail = () => {
       breadcrumbs={[{ label: "策略配置", to: "/strategies" }, { label: "策略详情" }]}
       actions={
         <>
-          <Button variant="outline" onClick={() => navigate("/strategies")}>
-            <ArrowLeft className="mr-1.5 h-4 w-4" />返回列表
+          <Button variant="outline" size="sm" onClick={() => navigate("/strategies")}>
+            <ArrowLeft className="mr-1.5 h-4 w-4" />返回
           </Button>
-          <Button asChild>
+          <Button asChild size="sm">
             <Link to={`/strategies/${s.id}/edit`}>
               <Pencil className="mr-1.5 h-4 w-4" />编辑
             </Link>
@@ -49,7 +49,7 @@ const StrategyDetail = () => {
         </>
       }
     >
-      <div className="mx-auto max-w-4xl space-y-5">
+      <div className="mx-auto max-w-4xl space-y-4 md:space-y-5">
         <Section title="基础信息">
           <Field label="策略名称"><span className="font-medium">{s.name}</span></Field>
           <Field label="策略描述">{s.description}</Field>

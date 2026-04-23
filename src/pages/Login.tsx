@@ -39,9 +39,20 @@ const Login = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-gradient-to-br from-sidebar via-sidebar to-primary/30 p-6">
+    <div className="flex min-h-screen w-full items-center justify-center bg-gradient-to-br from-sidebar via-sidebar to-primary/30 p-4 md:p-6">
       <div className="grid w-full max-w-4xl grid-cols-1 overflow-hidden rounded-xl shadow-2xl md:grid-cols-2">
-        {/* 左侧品牌区 */}
+        {/* 移动端品牌头 */}
+        <div className="flex items-center gap-3 bg-sidebar px-5 py-5 text-sidebar-foreground md:hidden">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-sidebar-primary">
+            <Activity className="h-4 w-4 text-sidebar-primary-foreground" />
+          </div>
+          <div className="flex flex-col leading-tight">
+            <span className="text-sm font-semibold text-white">舆情监控平台</span>
+            <span className="text-[10px] text-sidebar-foreground/60">Sentiment Monitor</span>
+          </div>
+        </div>
+
+        {/* 桌面品牌区 */}
         <div className="hidden flex-col justify-between bg-sidebar p-10 text-sidebar-foreground md:flex">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-md bg-sidebar-primary">
@@ -53,10 +64,10 @@ const Login = () => {
             </div>
           </div>
           <div className="space-y-3">
-            <h2 className="text-2xl font-semibold text-white leading-snug">
+            <h2 className="text-2xl font-semibold leading-snug text-white">
               聚焦负面舆情<br />洞察即时主题动向
             </h2>
-            <p className="text-sm text-sidebar-foreground/70 leading-relaxed">
+            <p className="text-sm leading-relaxed text-sidebar-foreground/70">
               基于策略命中 + 情感识别 + HDBSCAN 自动聚类，
               帮助品牌团队快速发现并响应每个时间窗口的关键负面话题。
             </p>
@@ -66,14 +77,14 @@ const Login = () => {
           </div>
         </div>
 
-        {/* 右侧表单 */}
-        <Card className="flex flex-col justify-center rounded-none border-0 bg-card p-10">
-          <div className="mb-8 space-y-1.5">
-            <h1 className="text-2xl font-semibold">账号登录</h1>
-            <p className="text-sm text-muted-foreground">请输入账号和密码以进入控制台</p>
+        {/* 表单 */}
+        <Card className="flex flex-col justify-center rounded-none border-0 bg-card p-6 md:p-10">
+          <div className="mb-6 space-y-1.5 md:mb-8">
+            <h1 className="text-xl font-semibold md:text-2xl">账号登录</h1>
+            <p className="text-sm text-muted-foreground">请输入账号和密码进入控制台</p>
           </div>
 
-          <form className="space-y-5" onSubmit={handleSubmit}>
+          <form className="space-y-4 md:space-y-5" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <Label htmlFor="username">账号</Label>
               <div className="relative">
@@ -83,7 +94,7 @@ const Login = () => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="请输入账号"
-                  className="pl-9"
+                  className="h-11 pl-9 md:h-10"
                   autoFocus
                 />
               </div>
@@ -99,12 +110,12 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="请输入密码"
-                  className="pl-9"
+                  className="h-11 pl-9 md:h-10"
                 />
               </div>
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="h-11 w-full md:h-10" disabled={loading}>
               {loading ? "登录中…" : "登录"}
             </Button>
           </form>
@@ -112,7 +123,7 @@ const Login = () => {
           <button
             type="button"
             onClick={fillMock}
-            className="mt-4 flex w-full items-start gap-2 rounded-md border border-info/20 bg-info-soft px-3 py-2.5 text-left text-xs text-info transition-colors hover:bg-info/10"
+            className="mt-4 flex w-full items-start gap-2 rounded-md border border-info/20 bg-info-soft px-3 py-2.5 text-left text-xs leading-relaxed text-info transition-colors hover:bg-info/10"
           >
             <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
             <span>
