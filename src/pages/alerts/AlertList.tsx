@@ -123,9 +123,9 @@ const AlertList = () => {
               </div>
             </div>
 
-            {/* 时间快捷按钮：移动端横向滚动 */}
-            <div className="-mx-3 overflow-x-auto px-3 md:mx-0 md:overflow-visible md:px-0">
-              <div className="flex items-center gap-2 whitespace-nowrap md:flex-wrap">
+            {/* 时间快捷按钮：自动换行 */}
+            <div>
+              <div className="flex flex-wrap items-center gap-2">
                 {timeWindows.map((w) => (
                   <button
                     key={w.key}
