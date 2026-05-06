@@ -14,6 +14,11 @@ import AlertDetail from "./pages/alerts/AlertDetail";
 import AnalysisList from "./pages/analysis/AnalysisList";
 import TopicDetail from "./pages/analysis/TopicDetail";
 import SystemSettings from "./pages/settings/SystemSettings";
+import Dashboard from "./pages/dashboard/Dashboard";
+import AllNegativeTopics from "./pages/dashboard/AllNegativeTopics";
+import AllTopicResults from "./pages/dashboard/AllTopicResults";
+import DashboardTopicDetail from "./pages/dashboard/DashboardTopicDetail";
+import TopicAllLogs from "./pages/dashboard/TopicAllLogs";
 
 const queryClient = new QueryClient();
 
@@ -25,7 +30,13 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Navigate to="/analysis" replace />} />
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
+          <Route path="/dashboard/negative-topics" element={<RequireAuth><AllNegativeTopics /></RequireAuth>} />
+          <Route path="/dashboard/topic-results" element={<RequireAuth><AllTopicResults /></RequireAuth>} />
+          <Route path="/dashboard/topics/:id" element={<RequireAuth><DashboardTopicDetail /></RequireAuth>} />
+          <Route path="/dashboard/topics/:id/logs" element={<RequireAuth><TopicAllLogs /></RequireAuth>} />
+
           <Route path="/strategies" element={<RequireAuth><StrategyList /></RequireAuth>} />
           <Route path="/strategies/new" element={<RequireAuth><StrategyForm mode="create" /></RequireAuth>} />
           <Route path="/strategies/:id/edit" element={<RequireAuth><StrategyForm mode="edit" /></RequireAuth>} />
