@@ -37,6 +37,13 @@ const trendByWindow: Record<string, { time: string; count: number }[]> = {
   })),
 };
 
+const pad2 = (n: number) => String(n).padStart(2, "0");
+const todayStr = (() => {
+  const d = new Date();
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+})();
+const withDate = (t: string) => `${todayStr} ${t}`;
+
 const Dashboard = () => {
   const [windowKey, setWindowKey] = useState("1h");
   const trendData = trendByWindow[windowKey];
@@ -199,7 +206,7 @@ const Dashboard = () => {
                           </span>
                         </TableCell>
                         <TableCell><div className="flex flex-wrap gap-1">{t.sources.map((s) => <SourceBadge key={s} source={s} />)}</div></TableCell>
-                        <TableCell className="text-muted-foreground tabular-nums">{t.timeRange.split("-")[0]}</TableCell>
+                        <TableCell className="text-muted-foreground tabular-nums">{withDate(t.timeRange.split("-")[0])}</TableCell>
                         <TableCell className="text-right">
                           <Button asChild variant="ghost" size="sm" className="h-8 px-2 text-primary">
                             <Link to={`/dashboard/topics/${t.id}`}><Eye className="mr-1 h-3.5 w-3.5" />详情</Link>
@@ -225,7 +232,7 @@ const Dashboard = () => {
                     </div>
                     <div className="flex flex-wrap gap-1">{t.sources.map((s) => <SourceBadge key={s} source={s} />)}</div>
                     <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                      <span className="tabular-nums">{t.timeRange.split("-")[0]}</span>
+                      <span className="tabular-nums">{withDate(t.timeRange.split("-")[0])}</span>
                       <Button asChild variant="ghost" size="sm" className="h-7 px-2 text-primary">
                         <Link to={`/dashboard/topics/${t.id}`}><Eye className="mr-1 h-3 w-3" />详情</Link>
                       </Button>
@@ -324,7 +331,7 @@ const Dashboard = () => {
                         <TableCell><Link to={`/dashboard/topics/${t.id}`} className="font-medium hover:text-primary">{t.name}</Link></TableCell>
                         <TableCell className="text-right tabular-nums">{t.count.toLocaleString()}</TableCell>
                         <TableCell><StatusBadge status={t.status} /></TableCell>
-                        <TableCell className="text-muted-foreground tabular-nums">{t.timeRange.split("-")[1] ?? "-"}</TableCell>
+                        <TableCell className="text-muted-foreground tabular-nums">{t.timeRange.split("-")[1] ? withDate(t.timeRange.split("-")[1]) : "-"}</TableCell>
                         <TableCell className="text-right">
                           <Button asChild variant="ghost" size="sm" className="h-8 px-2 text-primary">
                             <Link to={`/dashboard/topics/${t.id}`}><Eye className="mr-1 h-3.5 w-3.5" />详情</Link>
@@ -347,7 +354,7 @@ const Dashboard = () => {
                       <StatusBadge status={t.status} />
                     </div>
                     <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                      <span className="tabular-nums">{t.count.toLocaleString()} 条 · {t.timeRange.split("-")[1] ?? "-"}</span>
+                      <span className="tabular-nums">{t.count.toLocaleString()} 条 · {t.timeRange.split("-")[1] ? withDate(t.timeRange.split("-")[1]) : "-"}</span>
                       <Button asChild variant="ghost" size="sm" className="h-7 px-2 text-primary">
                         <Link to={`/dashboard/topics/${t.id}`}><Eye className="mr-1 h-3 w-3" />详情</Link>
                       </Button>
