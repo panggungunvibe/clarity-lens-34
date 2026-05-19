@@ -19,6 +19,11 @@ import AllNegativeTopics from "./pages/dashboard/AllNegativeTopics";
 import AllTopicResults from "./pages/dashboard/AllTopicResults";
 import DashboardTopicDetail from "./pages/dashboard/DashboardTopicDetail";
 import TopicAllLogs from "./pages/dashboard/TopicAllLogs";
+import RechargeBuy from "./pages/recharge/Buy";
+import RechargeRecords from "./pages/recharge/Records";
+import RechargePaymentOrder from "./pages/recharge/PaymentOrder";
+import RechargeEnterpriseTransferOrder from "./pages/recharge/EnterpriseTransferOrder";
+import RechargeOrderDetail from "./pages/recharge/OrderDetail";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +41,13 @@ const App = () => (
           <Route path="/dashboard/topic-results" element={<RequireAuth><AllTopicResults /></RequireAuth>} />
           <Route path="/dashboard/topics/:id" element={<RequireAuth><DashboardTopicDetail /></RequireAuth>} />
           <Route path="/dashboard/topics/:id/logs" element={<RequireAuth><TopicAllLogs /></RequireAuth>} />
+
+          <Route path="/recharge" element={<Navigate to="/recharge/buy" replace />} />
+          <Route path="/recharge/buy" element={<RequireAuth><RechargeBuy /></RequireAuth>} />
+          <Route path="/recharge/records" element={<RequireAuth><RechargeRecords /></RequireAuth>} />
+          <Route path="/recharge/pay/:id" element={<RequireAuth><RechargePaymentOrder /></RequireAuth>} />
+          <Route path="/recharge/bank/:id" element={<RequireAuth><RechargeEnterpriseTransferOrder /></RequireAuth>} />
+          <Route path="/recharge/orders/:id" element={<RequireAuth><RechargeOrderDetail /></RequireAuth>} />
 
           <Route path="/strategies" element={<RequireAuth><StrategyList /></RequireAuth>} />
           <Route path="/strategies/new" element={<RequireAuth><StrategyForm mode="create" /></RequireAuth>} />

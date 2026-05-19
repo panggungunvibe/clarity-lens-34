@@ -1,5 +1,5 @@
 import { NavLink, useNavigate, Link } from "react-router-dom";
-import { Bell, Settings, Target, AlertTriangle, Sparkles, ChevronRight, Activity, LogOut, Menu, LayoutDashboard } from "lucide-react";
+import { Bell, Settings, Target, AlertTriangle, Sparkles, ChevronRight, Activity, LogOut, Menu, LayoutDashboard, Wallet } from "lucide-react";
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -24,6 +24,7 @@ const navItems = [
   { to: "/analysis", label: "智能分析", icon: Sparkles },
   { to: "/strategies", label: "策略配置", icon: Target },
   { to: "/alerts", label: "告警日志", icon: AlertTriangle },
+  { to: "/recharge/buy", label: "充值中心", icon: Wallet },
   { to: "/settings", label: "系统设置", icon: Settings },
 ];
 
